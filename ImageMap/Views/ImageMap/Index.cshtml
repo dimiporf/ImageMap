@@ -39,7 +39,13 @@
             [data-area]:hover::before {
                 opacity: 1;
             }
-        
+
+        #hover-tab {
+            
+            
+        }
+
+            
        
     </style>
     
@@ -50,14 +56,14 @@
     <div class="image-container">
         <img src="/lib/vegetables.jpg" alt="Vegetable Map" usemap="#vegetableMap" id="image-to-map">
         <map name="vegetableMap">
-            <area shape="circle" coords="300,300,200" alt="Tomato" data-area="Tomato" class="area-highlight">
-            <area shape="circle" coords="800,200,200" alt="Lettuce" data-area="Lettuce" class="area-highlight">
-            <area shape="circle" coords="1200,500,180" alt="Onion" data-area="Onion" class="area-highlight">
-            <area shape="circle" coords="600,800,170" alt="Cucumber" data-area="Cucumber" class="area-highlight">
-            <area shape="circle" coords="1500,800,160" alt="Potato" data-area="Potato" class="area-highlight">
+            <area shape="circle" coords="300,300,200" alt="Red" data-area="Tomato" class="area-highlight">
+            <area shape="circle" coords="800,200,200" alt="Green" data-area="Lettuce" class="area-highlight">
+            <area shape="circle" coords="1200,500,180" alt="Grey" data-area="Onion" class="area-highlight">
+            <area shape="circle" coords="600,800,170" alt="Green" data-area="Cucumber" class="area-highlight">
+            <area shape="circle" coords="1500,800,160" alt="Brown" data-area="Potato" class="area-highlight">
         </map>
     </div>
-        <div id="hover-tab"></div>    
+        <div id="hover-tab" style="animation"></div>    
 
     <script>
         //Create a List where a Query Selector will get all areas by class="area-highlight"
@@ -68,8 +74,10 @@
             areaList[i].addEventListener('mouseover', (e) => {
                 // Get the value of the 'data-area' attribute from the clicked element
                 let textArea = e.target.getAttribute("data-area");
+                let textColor = e.target.getAttribute("alt");
                 // Find the element with the id 'hover-tab' and set its text content to the value of textArea
                 document.getElementById('hover-tab').textContent = textArea;
+                document.getElementById('hover-tab').style.color = textColor;
         });
         }
 
@@ -85,6 +93,8 @@
         
             .textContent = textArea: Sets the text content of the found element to the value of textArea.
         */
+
+
 
     </script>
 </body>
