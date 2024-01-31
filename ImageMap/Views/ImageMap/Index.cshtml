@@ -37,13 +37,19 @@
             padding: 10px;
             display: none; /* Initially hidden */
             opacity: 0;
-            transition: opacity 0.5s ease-in-out;
+            transition:  opacity 0.5s ease-in-out;
+            transform: translateY(-700px);
+            
+            
             
         }
         /* Highlight the hovered area 
         .image-container:hover {
             opacity: 0.7; /* or any other desired opacity value */
         
+        /*Code missing here that implements a keyframe animation - currently not supported in Razor pages 
+            We can find this code snippet on our plain KeyframesTest.html file
+        */
           
        
     </style>
@@ -116,7 +122,7 @@
                     vegetableInfo.textContent = vegetableData[areaText] || "";
                     vegetableInfo.style.display = 'block';
                     vegetableInfo.style.opacity = '1';
-                    vegetableInfo.style.transform = 'translateY(-700px)'; // Example: Slide up effect
+                    //vegetableInfo.style.transform = 'translateY(-700px)'; // Example: Slide up effect
                     vegetableInfo.style.color = areaColor;
                 }
             });
