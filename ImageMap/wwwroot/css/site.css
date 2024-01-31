@@ -25,7 +25,7 @@
 
 /* Fade-in/out effect for vegetable information */
 #vegetable-info {
-    background-color: rgba(0, 0, 0); /* Black background with full opacity */
+    background-color: rgb(28, 28, 28, 0.48); /* Black background with full opacity */
     padding: 10px;
     display: none; /* Initially hidden */
     opacity: 0;
