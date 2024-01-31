@@ -5,44 +5,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #f0f0f0;
-        }
 
+        /* Styles for the container holding the image and related elements */
         .image-container {
             position: relative;
+            display: inline-block;
         }
 
-        #image-to-map {
-            max-width: 100%;
-        }
-
-        [data-area]:hover::before {
-            content: attr(data-area);
-            position: fixed;
-            top: 20px; /* Adjusted to 20px from the top */
-            left: 50%;
-            transform: translateX(-50%);
-            padding: 8px;
-            background-color: #333;
-            color: #fff;
-            border-radius: 4px;
-            opacity: 0; /* Start with 0 opacity */
-            transition: opacity 0.3s ease-in-out;
-        }
-
-            [data-area]:hover::before {
-                opacity: 1;
+            /* Styles for the image within the container */
+            .image-container img {
+                display: block;
+                max-width: 100%;
+                height: auto;
             }
 
+        /* Styles for the hover-tab displaying vegetable information */
         #hover-tab {
-            
-            
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            z-index: 1; /* Ensure the hover-tab appears above other elements */
+        }
+
+        /* Fade-in/out effect for vegetable information */
+        #vegetable-info {
+            background-color: rgba(0, 0, 0); /* Black background with full opacity */
+            padding: 10px;
+            display: none; /* Initially hidden */            
         }
 
             
@@ -62,39 +55,73 @@
             <area shape="circle" coords="600,800,170" alt="Green" data-area="Cucumber" class="area-highlight">
             <area shape="circle" coords="1500,800,160" alt="Brown" data-area="Potato" class="area-highlight">
         </map>
+        <div id="hover-tab"></div>
+        <div id="vegetable-info" align="center"></div>
     </div>
-        <div id="hover-tab" style="animation"></div>    
 
     <script>
-        //Create a List where a Query Selector will get all areas by class="area-highlight"
-        let areaList = document.querySelectorAll('.area-highlight');
-        //Create a loop that can iterate thoughout the list of areas
-        for (let i=0; i<areaList.length; i++){
-            //Add mouseover Events for dynamic switch between areas
-            areaList[i].addEventListener('mouseover', (e) => {
-                // Get the value of the 'data-area' attribute from the clicked element
-                let textArea = e.target.getAttribute("data-area");
-                let textColor = e.target.getAttribute("alt");
-                // Find the element with the id 'hover-tab' and set its text content to the value of textArea
-                document.getElementById('hover-tab').textContent = textArea;
-                document.getElementById('hover-tab').style.color = textColor;
+        // Selecting necessary HTML elements using their IDs and classes
+        const imageContainer = document.querySelector('.image-container');
+        const hoverTab = document.getElementById('hover-tab');
+        const vegetableInfo = document.getElementById('vegetable-info');
+
+        // Object or array to store vegetable information dynamically
+        const vegetableData = {
+            Tomato: "Tomatoes are rich in vitamins and antioxidants.",
+            Lettuce: "Lettuce is a leafy green vegetable often used in salads.",
+            Onion: "Onions add flavor to various dishes and come in different varieties.",
+            Cucumber: "Cucumbers are low-calorie vegetables with high water content.",
+            Potato: "Potatoes are versatile and can be prepared in various ways."
+        };
+
+        // Get all areas with class "area-highlight"
+        const areaList = document.querySelectorAll('.area-highlight');
+
+        // Event listener for mouse movement within the image container
+        imageContainer.addEventListener('mousemove', (e) => {
+            // Get the current mouse coordinates
+            const mouseX = e.clientX;
+            const mouseY = e.clientY;
+
+            // Check if the mouse is over a specific area
+            areaList.forEach((area) => {
+                // Extracting coordinates and radius of the area
+                const coords = area.coords.split(',').map(Number);
+                const [x, y, radius] = coords;
+
+                // Check if the mouse is within the circular area
+                if (Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2) <= Math.pow(radius, 2)) {
+                    // Get area text and color
+                    const areaText = area.getAttribute('data-area');
+                    const areaColor = area.getAttribute('alt');
+
+                    // Set position for the hover-tab with an offset
+                    const offsetLeft = -180;
+                    const offsetTop = -180;
+                    hoverTab.style.left = `${mouseX + offsetLeft}px`;
+                    hoverTab.style.top = `${mouseY + offsetTop}px`;
+
+                    // Set content and style for the hover-tab
+                    hoverTab.textContent = areaText;
+                    hoverTab.style.backgroundColor = areaColor;
+                    hoverTab.style.display = 'block';
+
+                    // Display vegetable information with custom transition, text color, and slide-up effect
+                    vegetableInfo.textContent = vegetableData[areaText] || "";
+                    vegetableInfo.style.display = 'block';
+                    vegetableInfo.style.opacity = '1';
+                    vegetableInfo.style.transform = 'translateY(-700px)'; // Example: Slide up effect
+                    vegetableInfo.style.color = areaColor;
+                }
+            });
         });
-        }
 
-            /*Explanation:
-
-            e.target: Refers to the element that triggered the event.
-            
-            .getAttribute("data-area"): Gets the value of the 'data-area' attribute from the clicked element.
-            
-            let textArea: Declares a variable named textArea to store the value retrieved from the 'data-area' attribute.
-            
-            document.getElementById('hover-tab'): Finds the HTML element with the id 'hover-tab'.
-        
-            .textContent = textArea: Sets the text content of the found element to the value of textArea.
-        */
-
-
+        // Event listener to hide hover-tab and vegetable-info when the mouse is not over any area
+        imageContainer.addEventListener('mouseout', () => {
+            hoverTab.style.display = 'none';
+            vegetableInfo.style.display = 'none';
+            vegetableInfo.style.opacity = '0';
+        });
 
     </script>
 </body>
