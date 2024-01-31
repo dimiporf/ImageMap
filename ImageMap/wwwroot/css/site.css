@@ -1,21 +1,66 @@
-html {
-  font-size: 14px;
+/* Styles for the container holding the image and related elements */
+.image-container {
+    position: relative;
+    display: inline-block;
 }
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    /* Styles for the image within the container */
+    .image-container img {
+        display: block;
+        max-width: 100%;
+        height: auto;
+    }
+
+/* Styles for the hover-tab displaying vegetable information */
+#hover-tab {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    z-index: 1; /* Ensure the hover-tab appears above other elements */
 }
 
-html {
-  position: relative;
-  min-height: 100%;
+/* Fade-in/out effect for vegetable information */
+#vegetable-info {
+    background-color: rgba(0, 0, 0); /* Black background with full opacity */
+    padding: 10px;
+    display: none; /* Initially hidden */
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    transform: translateY(-700px);
+    animation: translateYAnimation 1s ease-in-out;
 }
 
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
+/* Keyframes for the translateY animation */
+@keyframes translateYAnimation {
+    0% {
+        opacity: 0;
+        transform: translateY(0px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(-700px);
+    }
 }
 
+.area-highlight {
+    opacity: 0;
+
+}
+
+/* Specific styles for each area-highlight element */
+:is(.area-highlight[data-area="Tomato"]) {
+    /* Add specific styles for each vegetable area */
+    cursor: pointer;
+}
+
+
+/* Highlight the hovered area  */
+.area-highlight:hover {
+    opacity: 0.7; /* or any other desired opacity value */
+}
