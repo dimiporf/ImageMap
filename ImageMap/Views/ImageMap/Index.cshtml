@@ -55,11 +55,37 @@
             // Check if the mouse is over a specific area
             areaList.forEach((area) => {
                 // Extracting coordinates and radius of the area
+                /*
+                this code takes a string of coordinates separated by commas,
+                converts them into an array of numbers, and then assigns the individual values
+                to variables x, y, and radius.
+                This is commonly used when dealing with coordinate data in a format like "x,y,radius".
+                */
                 const coords = area.coords.split(',').map(Number);
                 const [x, y, radius] = coords;
 
-                // Check if the mouse is within the circular area
+                /* 
+                Check if the mouse is within the circular area
+                
+                Math.pow(mouseX - x, 2):
+                This part calculates the squared horizontal distance
+                between the mouse cursor(mouseX) and the center of the circle(x).
+
+                Math.pow(mouseY - y, 2):
+                This part calculates the squared vertical distance
+                between the mouse cursor(mouseY) and the center of the circle(y).
+
+                Math.pow(radius, 2):
+                This part calculates the squared value of the radius of the circle.
+
+                The entire expression checks whether the sum of the squared horizontal
+                and squared vertical distances from the mouse cursor to the circle's center
+                is less than or equal to the squared radius. If this condition is true,
+                it means that the mouse cursor is inside or on the boundary of the circle.              
+                        */
+
                 if (Math.pow(mouseX - x, 2) + Math.pow(mouseY - y, 2) <= Math.pow(radius, 2)) {
+
                     // Get area text and color
                     const areaText = area.getAttribute('data-area');
                     const areaColor = area.getAttribute('alt');
