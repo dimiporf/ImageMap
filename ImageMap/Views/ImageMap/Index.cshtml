@@ -41,6 +41,12 @@
             Potato: "Potatoes are versatile and can be prepared in various ways."
         };
 
+
+
+
+
+
+
         // Get all areas with class "area-highlight"
         const areaList = document.querySelectorAll('.area-highlight');
 
@@ -77,7 +83,7 @@
                     vegetableInfo.textContent = vegetableData[areaText] || "";
                     vegetableInfo.style.display = 'block';
                     vegetableInfo.style.opacity = '1';
-                    //vegetableInfo.style.transform = 'translateY(-700px)'; // Example: Slide up effect
+                    //vegetableInfo.style.transform = 'translateY(-700px)'; // Moved this implementation on CSS
                     vegetableInfo.style.color = areaColor;
                 }
             });
